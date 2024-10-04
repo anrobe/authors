@@ -17,7 +17,7 @@ public class AuthorController {
     @Autowired
     private AuthorService authorService;
 
-    @PostMapping
+    @PostMapping("/save")
     public ResponseEntity<String> saveAuthor(@RequestBody AuthorVO authorVO) {
         boolean isSaved = authorService.save(authorVO);
         if (isSaved) {
@@ -27,7 +27,7 @@ public class AuthorController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteAuthor(@PathVariable Long id) {
         try {
             authorService.deleteById(id);
@@ -37,7 +37,7 @@ public class AuthorController {
         }
     }
 
-    @GetMapping
+    @GetMapping("/getAll")
     public ResponseEntity<List<AuthorVO>> getAllAuthors() {
         try {
             List<AuthorVO> authors = authorService.findAll();
@@ -47,7 +47,7 @@ public class AuthorController {
         }
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/getId/{id}")
     public ResponseEntity<AuthorVO> getAuthorById(@PathVariable Long id) {
         try {
             AuthorVO authorVO = authorService.findById(id);
