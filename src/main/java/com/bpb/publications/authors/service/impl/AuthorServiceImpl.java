@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Service
+@Service("authorService")
 public class AuthorServiceImpl implements AuthorService {
 
     @Autowired
