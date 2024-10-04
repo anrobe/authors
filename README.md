@@ -40,3 +40,8 @@ git pull --rebase origin main
 --
 git push -u origin main
 --
+
+OBSERVACIÓN
+* Almodificar un fichero aplicar los siguientes comandos para actualizar la rama
+git commit -a -m "fase 1 - Orginal, generado por https://start.spring.io/"
+git push -f origin main
