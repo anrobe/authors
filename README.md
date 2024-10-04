@@ -42,5 +42,5 @@ git push -u origin main
 --
 
 OBSERVACIÓN: Al modificar un fichero aplicar los siguientes comandos para actualizar la rama
-* [git commit -a -m "fase 1 - Orginal, generado por https://start.spring.io/"]
-* [git push -f origin main]
+* git commit -a -m "fase 1 - Orginal, generado por https://start.spring.io/"
+* git push -f origin main
