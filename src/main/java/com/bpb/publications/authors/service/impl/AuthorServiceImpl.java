@@ -11,11 +11,10 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
-@Service("authorService")
+@Service
 public class AuthorServiceImpl implements AuthorService {
 
     @Autowired
@@ -24,23 +23,21 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     @Transactional
     public boolean save(AuthorVO authorVO) {
-        boolean result = true;
         Author author = new Author();
         BeanUtils.copyProperties(authorVO, author);
         try {
             authorRepository.save(author);
-        }catch(DataAccessException e) {
-            result = false;
+            return true;
+        } catch (DataAccessException e) {
+            return false;
         }
-        return result;
     }
 
     @Override
     @Transactional
     public void deleteById(Long id) {
-        Optional<Author> author = authorRepository.findById(id);
-        if(!author.isPresent()) {
-            throw new NoRecordsException("No Records for Author for ID: "+id);
+        if (!authorRepository.existsById(id)) {
+            throw new NoRecordsException("No Records for Author for ID: " + id);
         }
         authorRepository.deleteById(id);
     }
@@ -48,29 +45,26 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     @Transactional(readOnly = true)
     public List<AuthorVO> findAll() {
-        List<Author> authors = (List<Author>) authorRepository.findAll();
-        if(authors.isEmpty()) {
+        List<Author> authors = authorRepository.findAll();
+        if (authors.isEmpty()) {
             throw new NoRecordsException("No Author found");
         }
-        List<AuthorVO> authorsVO = new ArrayList<>();
-        for(Author author:authors) {
-            AuthorVO authorVO = new AuthorVO();
-            BeanUtils.copyProperties(author, authorVO);
-            authorsVO.add(authorVO);
-        }
-        return authorsVO;
+        return authors.stream()
+                .map(author -> {
+                    AuthorVO authorVO = new AuthorVO();
+                    BeanUtils.copyProperties(author, authorVO);
+                    return authorVO;
+                })
+                .collect(Collectors.toList());
     }
 
     @Override
     @Transactional(readOnly = true)
     public AuthorVO findById(Long id) {
-        Optional<Author> author = authorRepository.findById(id);
-        if(!author.isPresent()) {
-            throw new NoRecordsException("No Records for Author for ID: "+id);
-        }
+        Author author = authorRepository.findById(id)
+                .orElseThrow(() -> new NoRecordsException("No Records for Author for ID: " + id));
         AuthorVO authorVO = new AuthorVO();
-        BeanUtils.copyProperties(author.get(), authorVO);
+        BeanUtils.copyProperties(author, authorVO);
         return authorVO;
     }
-
 }
