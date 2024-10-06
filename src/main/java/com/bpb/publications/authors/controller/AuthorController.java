@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.Positive;
 import java.util.List;
 
 @RestController
@@ -49,7 +50,7 @@ public class AuthorController {
     }
 
     @GetMapping("/getId/{id}")
-    public ResponseEntity<?> getAuthorById(@PathVariable Long id) {
+    public ResponseEntity<?> getAuthorById(@PathVariable @Positive(message = "Invalid ID") Long id) {
         try {
             AuthorVO authorVO = authorService.findById(id);
             return new ResponseEntity<>(authorVO, HttpStatus.OK);
