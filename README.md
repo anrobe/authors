@@ -2,12 +2,12 @@
 Programación básica de Servicios
 
 ### GIT
-* git init
-* git add .
-* git commit -m "fase 1 - Orginal, generado por https://start.spring.io/"
-* git branch -M main
-* git remote add origin https://github.com/anrobe/authors.git
-* git push -u origin main
+- git init
+- git add .
+- git commit -m "fase 1 - Orginal, generado por https://start.spring.io/"
+- git branch -M main
+- git remote add origin https://github.com/anrobe/authors.git
+- git push -u origin main
 
 Si el contenido del Proyecto original no coincide se esta teniendo un problema al intentar subir (push) tu repositorio Git local al repositorio remoto en GitHub. El mensaje de error sugiere que el repositorio remoto contiene trabajo que no está presente en tu repositorio local. Esto suele ocurrir cuando el repositorio remoto se inicializó con algún contenido (como un archivo README) cuando se creó en GitHub.
 Para resolver este problema, tienes un par de opciones:
